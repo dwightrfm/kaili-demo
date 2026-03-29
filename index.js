@@ -4,7 +4,7 @@ const Anthropic = require('@anthropic-ai/sdk');
 const path = require('path');
 
 const app = express();
-const client = new Anthropic();
+const client = new Anthropic({ apiKey: 'sk-ant-YOURKEY' });
 
 app.use(express.json());
 app.use(express.static('public'));

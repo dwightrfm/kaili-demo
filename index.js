@@ -31,7 +31,7 @@ app.post('/chat', async (req, res) => {
   res.json({ reply: response.content[0].text });
 });
 
-app.get('*', (req, res) => {
+app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 

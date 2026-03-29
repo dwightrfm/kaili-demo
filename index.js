@@ -1,10 +1,10 @@
-
+require('dotenv').config();
 const express = require('express');
 const Anthropic = require('@anthropic-ai/sdk');
 const path = require('path');
 
 const app = express();
-const client = new Anthropic({ apiKey: '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' });
+const client = new Anthropic();
 
 app.use(express.json());
 app.use(express.static('public'));
@@ -22,7 +22,7 @@ app.post('/chat', async (req, res) => {
   ];
 
   const response = await client.messages.create({
-    model: 'claude-sonnet-4-5',
+    model: 'claude-sonnet-4-20250514',
     max_tokens: 1024,
     system: SYSTEM_PROMPT,
     messages
@@ -31,7 +31,7 @@ app.post('/chat', async (req, res) => {
   res.json({ reply: response.content[0].text });
 });
 
-app.get('/', (req, res) => {
+app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 

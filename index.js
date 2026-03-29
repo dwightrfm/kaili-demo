@@ -1,10 +1,9 @@
-require('dotenv').config();
 const express = require('express');
 const Anthropic = require('@anthropic-ai/sdk');
 const path = require('path');
 
 const app = express();
-const client = new Anthropic();
+const client = new Anthropic({ apiKey: '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' });
 
 app.use(express.json());
 app.use(express.static('public'));
@@ -15,19 +14,16 @@ Be direct, short, and action-oriented. No fluff.`;
 
 app.post('/chat', async (req, res) => {
   const { message, history } = req.body;
-
   const messages = [
     ...(history || []),
     { role: 'user', content: message }
   ];
-
   const response = await client.messages.create({
-    model: 'claude-sonnet-4-20250514',
+    model: 'claude-sonnet-4-5',
     max_tokens: 1024,
     system: SYSTEM_PROMPT,
     messages
   });
-
   res.json({ reply: response.content[0].text });
 });
 
